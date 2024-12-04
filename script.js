@@ -5,6 +5,8 @@ const DUMMYDATA = [
     name: "Alison Morogiello",
     title: "Licensed Professional Counselor",
     location: "USA",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -12,6 +14,8 @@ const DUMMYDATA = [
     name: "Melissa Bartholomew",
     title: "Licensed Mental Health Counselor",
     location: "USA",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -19,6 +23,8 @@ const DUMMYDATA = [
     name: "Linda Salomone",
     title: "Ph.D., LPCC",
     location: "USA",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -26,6 +32,8 @@ const DUMMYDATA = [
     name: "John Doe",
     title: "Clinical Psychologist",
     location: "UK",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -33,6 +41,8 @@ const DUMMYDATA = [
     name: "Emma Thompson",
     title: "Mental Health Therapist",
     location: "Canada",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -40,6 +50,8 @@ const DUMMYDATA = [
     name: "Samuel Lee",
     title: "Licensed Clinical Social Worker",
     location: "Australia",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -47,6 +59,8 @@ const DUMMYDATA = [
     name: "Sophia Velasquez",
     title: "Counselor",
     location: "USA",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
   {
     quote:
@@ -54,6 +68,8 @@ const DUMMYDATA = [
     name: "Michael Chang",
     title: "Psychotherapist",
     location: "Singapore",
+    authorImg:
+      "https://imageio.forbes.com/specials-images/imageserve/666b150e10794140876a9a08/William-Shakespeare-holding-a-pen-/0x0.jpg?format=jpg&crop=1488,1328,x0,y123,safe&width=960",
   },
 ];
 
@@ -62,6 +78,7 @@ const testimonialDots = document.querySelector(".testimonial-dots");
 
 let currentIndex = 0;
 
+// rendering testimonial item structure
 function renderTestimonialItem(item, index) {
   const testimonialItem = document.createElement("li");
   testimonialItem.id = `testimonial-${index + 1}`;
@@ -70,22 +87,26 @@ function renderTestimonialItem(item, index) {
   quote.classList.add("testimonial-quote");
   quote.innerHTML = `<p>${item.quote}</p>`;
 
+  const infoContainer = document.createElement("div");
+  infoContainer.classList.add("testimonial-info-container");
+
   const info = document.createElement("div");
   info.classList.add("testimonial-info");
 
   const authorImage = document.createElement("div");
   authorImage.classList.add("testimonial-author-image");
-  authorImage.innerHTML = `<img src="/images/user.jpg" alt="author" />`;
+  authorImage.innerHTML = `<img src=${item.authorImg} alt="author" />`;
 
   const authorInfo = document.createElement("div");
   authorInfo.classList.add("author-info");
-  authorInfo.innerHTML = `<h1>${item.name}</h1><p>${item.title}<span>${item.location}</span></p>`;
+  authorInfo.innerHTML = `<h1>${item.name}</h1><p>${item.title}<span>, ${item.location}</span></p>`;
 
   info.appendChild(authorImage);
   info.appendChild(authorInfo);
+  infoContainer.appendChild(info);
 
   testimonialItem.appendChild(quote);
-  testimonialItem.appendChild(info);
+  testimonialItem.appendChild(infoContainer);
 
   testimonialsList.appendChild(testimonialItem);
 
@@ -97,6 +118,7 @@ function renderTestimonialItem(item, index) {
   testimonialItemDot.addEventListener("click", () => goToSlide(index));
 }
 
+// Handling Testimonials scroll
 function updateActiveDot(index) {
   document.querySelectorAll(".testimonial-dots li").forEach((dot, idx) => {
     if (idx === index) dot.classList.add("active");
@@ -105,7 +127,6 @@ function updateActiveDot(index) {
 }
 
 function goToSlide(index) {
-  const screenWidth = window.innerWidth;
   const testimonialItems = document.querySelectorAll(".testimonial-item");
   let scrollDistance = 0;
   for (let i = 0; i < index; i++) {
@@ -130,4 +151,5 @@ function prevSlide() {
 document.getElementById("next-btn").addEventListener("click", nextSlide);
 document.getElementById("prev-btn").addEventListener("click", prevSlide);
 
+// Mapping dummy data
 DUMMYDATA.forEach((item, index) => renderTestimonialItem(item, index));
